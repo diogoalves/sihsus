@@ -1,7 +1,7 @@
 DATASUS_DIR = datasus.gov.br
 DATASET_DIR = dataset
 
-DATASUS_DOWNLOAD_MASK = "open ftp.datasus.gov.br:/dissemin/publicos/SIHSUS/200801_/dados; mirror -i RDAC0801.dbc ./ ./$(DATASUS_DIR)"
+DATASUS_DOWNLOAD_MASK = "open ftp.datasus.gov.br:/dissemin/publicos/SIHSUS/200801_/dados; mirror -i RDAC0.01.dbc ./ ./$(DATASUS_DIR)"
 
 
 DBC_FILES = $(sort $(wildcard ./datasus.gov.br/*.dbc))
