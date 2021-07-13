@@ -12,18 +12,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+      
+      - name: Check out repository code
       - uses: actions/checkout@v2
+      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
 
       - name: Install lftp
-        run: sudo apt install lftp -y
+      - run: sudo apt install lftp -y
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: make init
+      - name: Initilize directories and download data from Datasus.gov.br
+      - run: make init
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - name: List files in the repository
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          find ${{ github.workspace }}
+          echo Done!
+      - run: echo "🍏 This job's status is ${{ job.status }}."
+
