@@ -33,4 +33,4 @@ jobs:
           echo "🍏 This job's status is ${{ job.status }}."
 
       - name: Setup Python
-        uses: actions/setup-python@default
+        uses: actions/setup-python@v2.2.2
