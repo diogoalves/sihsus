@@ -32,3 +32,5 @@ jobs:
           find ${{ github.workspace }}
           echo "🍏 This job's status is ${{ job.status }}."
 
+      - name: Setup Python
+        uses: actions/setup-python@default
