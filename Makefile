@@ -1,7 +1,7 @@
 DATASUS_DIR = datasus.gov.br
 DATASET_DIR = dataset
 
-DATASUS_DOWNLOAD_MASK = "open ftp.datasus.gov.br:/dissemin/publicos/SIHSUS/200801_/dados; mirror -i RDAC0.01.dbc ./ ./$(DATASUS_DIR)"
+DATASUS_DOWNLOAD_MASK = "open ftp.datasus.gov.br:/dissemin/publicos/SIHSUS/200801_/dados; mirror -i RDAC..01.dbc ./ ./$(DATASUS_DIR)"
 
 
 DBC_FILES = $(sort $(wildcard ./datasus.gov.br/*.dbc))
@@ -28,12 +28,15 @@ init:
 
 # Generate parquet files
 #
-generate-parquets: $(PQ_FILES)
+generate-parquets: $(PQ_FILES) blast-dbf/blast-dbf
 
 dataset/%.pq: ./datasus.gov.br/%.dbc
 	@ echo "\n[Generating parquet] $@ from $<" 
 	@ python3 dbc2parquet.py $< $@
 	
+blast-dbf/blast-dbf:
+	cd blast-dbf && $(MAKE) -f Makefile
+
 
 # Create parquet dataset
 #
@@ -51,3 +54,4 @@ $(DATASET_DIR)/_metadata: $(PQ_FILES)
 clean:
 	-@ rm ${DATASUS_DIR}/*.dbf 2> /dev/null 
 	@ if [ -z ${DATASET_DIR} ]; then echo "\n[DATASET_DIR is unset]"; else echo "\n[Removing directory '${DATASET_DIR}']" && rm -rf ${DATASET_DIR}; fi
+	@ cd blast-dbf && $(MAKE) -f Makefile clean
