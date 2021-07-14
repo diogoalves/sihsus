@@ -1,0 +1,1 @@
+./YEAR=2011/UF=AC/MONTH=01/part.0.parquet
