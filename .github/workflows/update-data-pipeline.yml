@@ -22,16 +22,19 @@ jobs:
           submodules: 'true'
       
       - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      
-      - name: Install dependencies
-        run: |
-          sudo apt install lftp -y
-          pip install dbfread
-        
+
       - name: Setup Python
         uses: actions/setup-python@v2.2.2
         
-      - name: Initilize directories and download data from Datasus.gov.br
+      - name: Pip Installer
+        uses: BSFishy/pip-action@v1
+        with:
+          requirements: requirements.txt
+          
+      - name: Install lftp
+        run: sudo apt install lftp -y
+        
+      - name: Start data pipeline
         run: make
         
       - name: List files in the repository
