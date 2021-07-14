@@ -1,0 +1,3 @@
+[submodule "blast-dbf"]
+	path = blast-dbf
+	url = https://github.com/eaglebh/blast-dbf
