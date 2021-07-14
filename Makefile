@@ -24,18 +24,16 @@ init:
 	@ mkdir -p $(DATASUS_DIR)
 	@ mkdir -p $(DATASET_DIR)
 	@ @ lftp -c $(DATASUS_DOWNLOAD_MASK)
+	@ cd blast-dbf && $(MAKE) -f Makefile
 
 
 # Generate parquet files
 #
-generate-parquets: $(PQ_FILES) blast-dbf/blast-dbf
+generate-parquets: $(PQ_FILES) 
 
 dataset/%.pq: ./datasus.gov.br/%.dbc
 	@ echo "\n[Generating parquet] $@ from $<" 
 	@ python3 dbc2parquet.py $< $@
-	
-blast-dbf/blast-dbf:
-	cd blast-dbf && $(MAKE) -f Makefile
 
 
 # Create parquet dataset
