@@ -28,6 +28,8 @@ jobs:
         
       - name: Pip Installer
         uses: BSFishy/pip-action@v1
+        with:
+          requirements: requirements.txt
           
       - name: Install lftp
         run: sudo apt install lftp -y
